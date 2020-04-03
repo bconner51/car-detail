@@ -1,0 +1,165 @@
+#include <iostream>
+#include <windows.h>
+#include <string>
+#include <vector>
+
+int main()
+{
+    bool exit{ false };
+    int exit_code{ 0 };
+
+    std::cout << "Welcome to the daily income calculator" << std::endl;
+    std::cout << "Lets get started with what you want to use the calculator for" << std::endl;
+
+    do {
+        int user_input{ 0 };
+        std::cout << "Are you wanting to calulate income for the day, week, month or year?" << std::endl;
+        std::cout << "For daily, input: 1 \nFor weekly, input: 2 \nFor month, input: 3 \nFor year, input: 4" << std::endl;
+        std::cin >> user_input;
+        //selections
+        if (user_input <= 0 || user_input >= 5) {
+            std::cout << "That doesn't seem right. Lets try again!" << std::endl;
+            std::cout << "For daily, input: 1 \nFor weekly, input: 2 \nFor month, input: 3 \nFor year, input: 4\nExit: 5" << std::endl;
+            std::cin >> user_input;
+        }
+        if (user_input == 1 || user_input == 2 || user_input == 3 || user_input == 4) {
+            std::cout << "Excellent!" << std::endl;
+            //daily
+            if (user_input == 1) {
+
+                int cars_detailed{ 0 };
+                int SUVs_detailed{ 0 };
+                int mtrcls_detailed{ 0 };
+                double price_car{ 36.95 };
+                double price_SUV{ 41.65 };
+                double price_mtrcls{ 15.35 };
+                double tax{ 0.06 };
+                double daily_shop{ 250.0 };
+                double supply_percar{ 5.5 };
+                double supply_perSUV{ 7.25 };
+                double supply_permtrcls{ 2.75 };
+
+                std::cout << "Lets get started! How many cars did you detail today? " << std::endl;
+                std::cin >> cars_detailed;
+                std::cout << "Awesome! How many SUV's did you detail today?" << std::endl;
+                std::cin >> SUVs_detailed;
+                std::cout << "Fantastic! Did you detail any motorcycles today? " << std::endl;
+                std::cin >> mtrcls_detailed;
+
+                double daily_car_total = (cars_detailed * price_car) + (SUVs_detailed * price_SUV) + (mtrcls_detailed * price_mtrcls);
+                double daily_car_tax = ((cars_detailed * price_car) + (SUVs_detailed * price_SUV) + (mtrcls_detailed * price_mtrcls)) * tax;
+                double daily_supply_total = (cars_detailed * supply_percar) + (SUVs_detailed * supply_perSUV) + (mtrcls_detailed * supply_permtrcls);
+                double daily_supply_tax = ((cars_detailed * supply_percar) + (SUVs_detailed * supply_perSUV) + (mtrcls_detailed * supply_permtrcls)) * tax;
+
+                std::cout << "**************************************************************" << std::endl;
+                std::cout << "Awesome! Here is the daily sumary of earnings and supplies cost!!" << std::endl;
+                std::cout << "\nGross Revenue from Cars:  $" << cars_detailed * price_car << std::endl;
+                std::cout << "\nGross Revenue from SUV's : $" << SUVs_detailed * price_SUV << std::endl;
+                std::cout << "\nGross Revenue from Motorcycles : $" << mtrcls_detailed * price_mtrcls << std::endl;
+                std::cout << "**************************************************************" << std::endl;
+                std::cout << "Here is the daily cost and inventory" << std::endl;
+                std::cout << "\nTotal number of vehicles cleaned : " << (cars_detailed + SUVs_detailed + mtrcls_detailed) << std::endl;
+                std::cout << "\nIncome from total vehicles : $" << daily_car_total << std::endl;
+                std::cout << "\nIncome tax from total vehicles : $" << daily_car_tax << std::endl;
+                std::cout << "\nSupply cost : $" << daily_supply_total << std::endl;
+                std::cout << "\nSupply cost Tax : $" << daily_supply_tax << std::endl;
+                std::cout << "\nEnd of day total income : $" << (daily_car_total + daily_car_tax) - (daily_supply_total + daily_supply_tax + daily_shop) << std::endl;
+                std::cout << "\nBe sure to Copy these records to your daily revenue sheet before closing!!" << std::endl;
+            }
+            // weekly sales
+            if (user_input == 2) {
+                double total{};
+                double avg{};
+                double day1{}, day2{}, day3{}, day4{}, day5{};
+                const int count{ 5 };
+                std::cout << "Lets get started!\n Enter the end of day total income for each day followed by a space!" << std::endl;
+                std::cout << "********************************************************************" << std::endl;
+                std::cout << "Remember to only enter a maximum of 5days with any days AND if the shop\n was closed for that day then enter a 0!!" << std::endl;
+                std::cin >> day1 >> day2 >> day3 >> day4 >> day5;
+                total = day1 + day2 + day3 + day4 + day5;
+                avg = static_cast<double>(total) / count;
+                std::cout << "Awesome!!! The total income for this week was: $" << total << std::endl;
+                std::cout << "This weeks average per day was: $" << avg << std::endl;
+                std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+            }
+            //monthly sales
+            if (user_input == 3) {
+                double total{};
+                double avg{};
+                std::vector <double> week(5, 0.0);
+                int count{ 0 };
+                std::cout << "Lets get started!\n How many weeks were there in this month (Enter between 2-5 weeks)?" << std::endl;
+                std::cin >> count;
+                if (count == 2) {
+                    std::cout << "Excellent! Now enter the end of week total incomes for each week followed by a space!" << std::endl;
+                    std::cout << "********************************************************************" << std::endl;
+                    std::cout << "Remember to only enter a maximum of 4 weeks with any weeks AND if the shop\n was closed for that week then enter a 0!!" << std::endl;
+                    std::cin >> week[0] >> week[1];
+                    total = week[0] + week[1];
+                    std::cout << "Awesome!!! The total income for this month was: $" << total << std::endl;
+                    std::cout << "This months average per week was: $" << avg << std::endl;
+                    std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+                }
+                if (count == 3) {
+                    std::cout << "Excellent! Now enter the end of week total incomes for each week followed by a space!" << std::endl;
+                    std::cout << "********************************************************************" << std::endl;
+                    std::cout << "Remember to only enter a maximum of 4 weeks with any weeks AND if the shop\n was closed for that week then enter a 0!!" << std::endl;
+                    std::cin >> week[0] >> week[1] >> week[2];
+                    total = week[0] + week[1] + week[2];
+                    std::cout << "Awesome!!! The total income for this month was: $" << total << std::endl;
+                    std::cout << "This months average per week was: $" << avg << std::endl;
+                    std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+                }
+                if (count == 4) {
+                    std::cout << "Excellent! Now enter the end of week total incomes for each week followed by a space!" << std::endl;
+                    std::cout << "********************************************************************" << std::endl;
+                    std::cout << "Remember to only enter a maximum of 4 weeks with any weeks AND if the shop\n was closed for that week then enter a 0!!" << std::endl;
+                    std::cin >> week[0] >> week[1] >> week[2] >> week[3];
+                    total = week[0] + week[1] + week[2] + week[3];
+                    std::cout << "Awesome!!! The total income for this month was: $" << total << std::endl;
+                    std::cout << "This months average per week was: $" << avg << std::endl;
+                    std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+                }
+                if (count == 5) {
+                    std::cout << "Excellent! Now enter the end of week total incomes for each week followed by a space!" << std::endl;
+                    std::cout << "********************************************************************" << std::endl;
+                    std::cout << "Remember to only enter a maximum of 4 weeks with any weeks AND if the shop\n was closed for that week then enter a 0!!" << std::endl;
+                    std::cin >> week[0] >> week[1] >> week[2] >> week[3] >> week[4];
+                    total = week[0] + week[1] + week[2] + week[3] + week[4];
+                    std::cout << "Awesome!!! The total income for this month was: $" << total << std::endl;
+                    std::cout << "This months average per week was: $" << avg << std::endl;
+                    std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+                }
+            }
+            if (user_input == 4) {
+                std::vector <double> month(12, 0.0);
+                double total{ 0.0 };
+                double avg{ 0.0 };
+                const int count{ 12 };
+                std::cout << "Lets get started!\n Enter the end of month total incomes for each month followed by a space!" << std::endl;
+                std::cout << "********************************************************************" << std::endl;
+                std::cout << "Remember to only enter a maximum of 12 months with any months AND if the shop\n was closed for that month then enter a 0!!" << std::endl;
+                std::cin >> month[0] >> month[1] >> month[2] >> month[3] >> month[4] >> month[5] >> month[6] >> month[7] >> month[8] >> month[9] >> month[10] >> month[11];
+                total = month[0] + month[1] + month[2] + month[3] + month[4] + month[5] + month[6] + month[7] + month[8] + month[9] + month[10] + month[11];
+                avg = static_cast<double>(total) / count;
+                std::cout << "Awesome!!! The total income for this year was: $" << total << std::endl;
+                std::cout << "This years average per month was: $" << avg << std::endl;
+                std::cout << "\nBe sure to Copy these records to the appropriate revenue sheet before closing!!" << std::endl;
+            }
+            // exit code
+            std::cout << "That wraps up that selection for the income calculations!!\n Would you like to make another selection??" << std::endl;
+            std::cout << "1 = Yes!\n2 = No." << std::endl;
+            std::cin >> exit_code;
+            if (exit_code == 2) {
+                std::cout << "Alright then! Lets make another selection!" << std::endl;
+            }
+            if (exit_code <= 0 || exit_code >= 3) {
+                std::cout << "Improper selection.\nPlease try again!" << std::endl;
+            }
+            if (exit_code == 1) {
+                exit = true;
+            }
+        }
+    } while (exit != true);
+    std::cout << "Awesome! We hope to see you again soon!\nGoodbye!!" << std::endl;
+}
